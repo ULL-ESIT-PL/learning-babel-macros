@@ -1,4 +1,4 @@
-# Babel Macros
+# Learning Babel Macros
 
 [macros][] is both a plugin and a standard interface for npm-modules that want to use Babel compile-time code transformation without requiring the user to add a babel plugin to their build system. To use it 
 
