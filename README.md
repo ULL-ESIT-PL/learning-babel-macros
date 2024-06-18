@@ -80,7 +80,11 @@ is called with an object that has the following properties:
 - `references` is an object that contains arrays of all the references to things imported from the macro.
   They are keyed based on the name of the import. 
   The items in each array are the paths to the references.
-- `state` The state of the file being traversed. It's the second argument you receive in a visitor function in a normal babel plugin.
+- `state` The state of the file being traversed. It's the second argument you receive in a visitor function in a normal babel plugin. This `state` object is used to store and share information across different visitor methods. It can hold any kind of data that the macro might need to maintain state across different nodes of the AST. The state object typically contains the following properties:
+  - `opts`: Contains the options passed to the plugin.
+  - `file`: Provides information about the file being processed, such as the filename and the AST.
+  - `path`: The current path being visited (available within visitor methods).
+  - Custom properties defined by the plugin to store intermediate results or configuration data.
 - `babel` is the `babel-plugin-macros` module. It is also the same thing you get if you `require('babel-core')`.
 
 Here is the full code of the [yaml][] macro:
