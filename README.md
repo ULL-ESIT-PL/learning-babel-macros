@@ -47,5 +47,5 @@ As the macro arguments are [evaluated](https://github.com/babel/babel/blob/maste
 
 Multiple calls to load the same YAML file will not be cached.
 
-[babel-plugin-macros]: https://www.npmjs.com/package/babel-plugin-macros 
+[macros]: https://www.npmjs.com/package/babel-plugin-macros 
 [yaml]: https://github.com/eemeli/yaml.macro/tree/master
