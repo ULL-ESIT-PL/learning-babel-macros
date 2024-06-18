@@ -1,23 +1,23 @@
 {
-  "name": "babel-macros",
+  "name": "learning-babel-macros",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "babel use-yml.cjs",
+    "save": "git add . && git commit -m 'save' && git push"
   },
-  "keywords": [],
+  "keywords": [
+    "babel-macros",
+    "yaml.macro"
+  ],
   "author": "Casiano Rodriguez Leon <crguezl@ull.edu.es> (https://crguezl.github.io/)",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.24.7",
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
-    "babel-plugin-console": "^0.2.1",
     "babel-plugin-macros": "^3.1.0",
     "yaml.macro": "^0.2.0"
-  },
-  "dependencies": {
-    "babel-core": "^6.26.3"
   }
 }
