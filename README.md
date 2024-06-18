@@ -92,8 +92,8 @@ is called with an object that has the following properties:
 - `references` is an object that contains arrays of all the references to things imported from the macro.
   They are keyed based on the name of the import. 
   The items in each array are the paths to the references.
-- `state` is the second argument you're passed to a visitor in a normal babel plugin. 
-- `babel` is the `babel-plugin-macros` module.
+- `state` The state of the file being traversed. It's the second argument you receive in a visitor function in a normal babel plugin.
+- `babel` is the `babel-plugin-macros` module. It is also the same thing you get if you `require('babel-core')`.
 
 Here is the full code of the [yaml][] macro:
 
