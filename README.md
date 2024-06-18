@@ -60,31 +60,95 @@ Multiple calls to load the same YAML file will not be cached.
 A macro is a JavaScript module that exports a function. Here's a simple example:
 
 ```javascript
-const {createMacro} = require('babel-plugin-macros')
-
-// `createMacro` is simply a function that ensures your macro is only
-// called in the context of a babel transpilation and will throw an
-// error with a helpful message if someone does not have babel-plugin-macros
-// configured correctly
+const { createMacro, MacroError } = require('babel-plugin-macros')
 module.exports = createMacro(myMacro)
 
-function myMacro({references, state, babel}) {
-  // state is the second argument you're passed to a visitor in a
-  // normal babel plugin. `babel` is the `babel-plugin-macros` module.
-  // do whatever you like to the AST paths you find in `references`
-  // read more below...
+function myMacro({references, state, babel}) { 
+  ...
 }
 ```
+
+### The `createMacro`  and `MacroError` functions
+
+`createMacro` is simply a function that ensures your macro is only
+called in the context of a babel transpilation and will throw an
+error with a helpful message if someone does not have babel-plugin-macros
+configured correctly. 
+
+Use `MacroError` to throw an error inside your macro.
+
+### The `myMacro` function
+
+The function you export from your macro module 
+
+```javascript
+function myMacro({references, state, babel}) { 
+  ...
+}
+```
+
+is called with an object that has the following properties:
+
+- `references` is an object that contains arrays of all the references to things imported from the macro.
+  They are keyed based on the name of the import. 
+  The items in each array are the paths to the references.
+- `state` is the second argument you're passed to a visitor in a normal babel plugin. 
+- `babel` is the `babel-plugin-macros` module.
+
+Here is the full code of the [yaml][] macro:
+
+```js
+module.exports = createMacro(yamlMacro)
+
+function yamlMacro({ references, state }) {
+  for (const { parentPath } of references.default) {
+    if (parentPath.type !== 'CallExpression')
+      throw new MacroError('yaml.macro only supports usage as a function call')
+
+    let argPath, argOptions
+    try {
+      const args = parentPath.get('arguments')
+      argPath = args[0].evaluate().value
+      if (args.length > 1) argOptions = args[1].evaluate().value
+    } catch (error) {
+      error.message = `yaml.macro argument evaluation failed: ${error.message}`
+      throw error
+    }
+    /* istanbul ignore if */
+    if (!argPath) throw new MacroError('yaml.macro argument evaluation failed')
+
+    const dirname = path.dirname(state.file.opts.filename)
+    const fullPath = require.resolve(argPath, { paths: [dirname] })
+    const fileContent = fs.readFileSync(fullPath, { encoding: 'utf-8' })
+
+    const options = Object.assign({}, argOptions, {
+      intAsBigInt: false,
+      json: true,
+      mapAsMap: false
+    })
+    const res = YAML.parse(fileContent, options)
+    const exp = parseExpression(JSON.stringify(res))
+    parentPath.replaceWith(exp)
+  }
+}
+```
+
+### Ways to use a macro
 
 It can be published to the npm registry (for generic macros) or used locally 
 (for domain-specific macros).
 
+## The `babel-plugin-macros` API
+
 There are two parts to the `babel-plugin-macros` API:
 
 1. [The filename convention](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/author.md#filename)
+   - The way that `babel-plugin-macros` determines whether to run a macro is based on the source string of the `require` statement. It must match this regex: `/[./]macro(\.c?js)?$/`. For instance: `require('yaml.macro')`
 2. [The function you export](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/author.md#function-api)
 
-See [babel-plugin-macros Usage for macros authors](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/author.md) for more information.
+See 
+* [babel-plugin-macros Usage for macros authors](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/author.md) for the complete information.
+* [eemeli/yaml.macro/macro.js](https://github.com/eemeli/yaml.macro/blob/master/macro.js)
 
 [macros]: https://www.npmjs.com/package/babel-plugin-macros 
 [yaml]: https://github.com/eemeli/yaml.macro/tree/master
