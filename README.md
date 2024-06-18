@@ -41,11 +41,11 @@ const foo = ["YAML file", {
 }];
 ```
 
-See [/docs/yaml.md](/docs/yaml.md) for more information.
+See [/docs/yaml.md](/docs/yaml.md) for more information on the `yaml.macro`.
 
 ## Writing Macros
 
-A macro is a JavaScript module that exports a function. Here's a simple example:
+A macro is a JavaScript module whose name matches `/[./]macro(\.c?js)?$/` that exports a function. Here's a simple example:
 
 ```javascript
 const { createMacro, MacroError } = require('babel-plugin-macros')
