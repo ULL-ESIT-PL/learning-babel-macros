@@ -1,6 +1,6 @@
 ## The signature of the `yaml` function 
 
-Te signature of the `yaml` function used by [yaml][] is 
+Te signature of the `yaml` function used by the [yaml][].macro is 
 
 `yaml(path: string, options?: {}): any`
 
