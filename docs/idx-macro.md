@@ -72,7 +72,38 @@ The second argument you're passed to a visitor in a normal babel plugin is `stat
 The object passed to the function `createMacro` has also a field called `babel` 
 which is the `babel-plugin-macros` module but is skipped in this example.
  
-Since we are looking for `CallExpression` nodes in the AST, 
+The way that `babel-plugin-macros` determines whether to run a macro is based on the source string of the `import` or `require` statement. It must match this regex: `/[./]macro(\.c?js)?$/` in our example:
+
+```js
+import idx from 'idx.macro';
+const friends_of_friends = idx(props, _ => _.user.friends[0].friends);
+```
+
+tells `babel-plugin-macros` to apply the `idx` macro to the `idx` function call 
+(The macro you create should export a function). 
+
+`references` is an object that contains arrays of all the references to things imported from macro keyed based on the name of the `import`. That is why we write `references.default`.
+The items in each array are the `paths` to the references.
+
+```js
+references.default.forEach(referencePath => { ... });
+```
+
+This is how imagine it works:
+
+The `babel-plugin-macros` traverses the AST  and each time it encounters a node containing a call to the `idx` function stores the subtree in a list of nodes. Later calls the function exported by the macro 
+with the `state`, `bale` and the list of nodes in the `references` object.
+
+In our example there is only one call to the `idx` function:
+
+```js
+idx(props, _ => _.user.friends[0].friends)
+```
+
+but if there were more calls to the `idx` function in the code, they would be stored in the `references.default` array.
+
+
+
 
 ## The AST transformer function idx_transform
 
