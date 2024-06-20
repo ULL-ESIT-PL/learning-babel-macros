@@ -274,15 +274,12 @@ function makeChain(node, state, inside) {
 
 The `if (t.isCallExpression(node)) { ... }` block is executed when the body is a `CallExpression` like 
 in `idx(props, f => f().user)`. In such case the function `makeChain` is called recursively with the `callee`,
-the same `state` and the `inside` argument is now is the recursive call 
+the same `state` and the `inside` argument is now the recursive call 
 `makeCondition(t.CallExpression(state.temp, node.arguments), state, inside)`.
 
 ```js
-  return makeChain(
-      node.callee,
-      state,
-      makeCondition(t.CallExpression(state.temp, node.arguments), state, inside)
-    );
+  return makeChain(node.callee, state,
+      makeCondition(t.CallExpression(state.temp, node.arguments), state, inside));
 ```
 
 ## References
