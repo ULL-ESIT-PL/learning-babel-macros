@@ -158,7 +158,7 @@ we install only the `idx.macro`:
 And  assuming we have added `macros` to the plugins section of our babel config file:
 
 `➜  tan-li git:(main) ✗ cat babel.config.js`
-```json
+```js
 module.exports = {
   plugins: ['babel-plugin-macros'],
 };
