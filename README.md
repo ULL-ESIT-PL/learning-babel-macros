@@ -158,7 +158,7 @@ See section [docs/idx-macro.md](docs/idx-macro.md).
 * [Learning Babel Macros: ULL-ESIT-PL/learning-babel-macros](https://github.com/ULL-ESIT-PL/learning-babel-macros/tree/main) by Casiano
 * [babel-plugin-macros: Usage for macros authors](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/author.md). A tutorial on how to write Babel macros by Kent C. Dodds
 * My PL notes on Babel are here: https://ull-pl.vercel.app/topics/tree-transformations/babel
-* [ULL-ESIT-PL/babel-learning](https://github.com/ULL-ESIT-PL/babel-learning/tree/main) tutorial by Casiano
+* [ULL-ESIT-PL/babel-learning](https://github.com/ULL-ESIT-PL/babel-learning/tree/main) tutorial on the Babel Transpiler by Casiano
 * [Babel Handbook at jamiebuilds/babel-handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md) This document covers how to create Babel plugins.
 * [A boilerplate monorepo for people writing babel plugins in normal plugin form as well as babel-plugin-macros form](https://github.com/swyxio/babel-plugin-macro-boilerplate) by Shawn "swyx" Wang
   
