@@ -332,6 +332,10 @@ function makeCondition(node, state, inside) {
 
 * [dralletje/idx.macro](https://github.com/dralletje/idx.macro?tab=readme-ov-file) A 'babel-macros' version of 'babel-plugin-idx'
 * [I Can Babel Macros (and So Can You!)](https://www.youtube.com/watch?v=1WNT5RCENfo) by Shawn "swyx" Wang. JSConf Hawaii 2019
+* [Compilers are the New Frameworks](https://tomdale.net/2017/09/compilers-are-the-new-frameworks/) by Tom Dale
+
+
+
 
 [macros]: https://www.npmjs.com/package/babel-plugin-macros 
 [yaml]: https://github.com/eemeli/yaml.macro/tree/master
