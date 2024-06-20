@@ -142,7 +142,7 @@ See
 * [babel-plugin-macros Usage for macros authors](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/author.md) for the complete information.
 * [eemeli/yaml.macro/macro.js](https://github.com/eemeli/yaml.macro/blob/master/macro.js)
 
-## idx macro
+## Case Study: idx macro
 
 See section [docs/idx-macro.md](docs/idx-macro.md).
 

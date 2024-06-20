@@ -1,4 +1,4 @@
-# idx macro
+# Case Study: idx macro
 
 ## Running the idx macro
 
