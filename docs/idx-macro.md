@@ -282,6 +282,28 @@ the same `state` and the `inside` argument is now the recursive call
       makeCondition(t.CallExpression(state.temp, node.arguments), state, inside));
 ```
 
+The `if (t.isMemberExpression(node)) { ... }` block is executed when the body is a `MemberExpression` like
+in `idx(props, f => f.user`. In such case the function `makeChain` is called recursively with the `object`,
+the same `state` and the `inside` argument is now the recursive call
+```js
+return makeChain(node.object, state,
+  makeCondition(t.MemberExpression(state.temp, node.property, node.computed), state, inside)); 
+```
+
+The `if (t.isIdentifier(node)) { ... }` block is executed when the body is an `Identifier` like
+in `idx(props, f => f`. In such case the function `makeChain` is called recursively with the `object`,
+the same `state` and the `inside` argument is now the recursive call
+```js
+  if (node.name !== state.base.name) {
+    throw state.file.buildCodeFrameError(
+      node,
+      'The parameter of the arrow function supplied to `idx` must match ' +
+        'the base of the body expression.'
+    );
+  }
+  return makeCondition(state.input, state, inside);
+```
+
 ## References
 
 * [dralletje/idx.macro](https://github.com/dralletje/idx.macro?tab=readme-ov-file) A 'babel-macros' version of 'babel-plugin-idx'
