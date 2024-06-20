@@ -176,6 +176,43 @@ will give the full path `/Users/casianorodriguezleon/campus-virtual/2324/learnin
 
 ### The code of `makeChain`
 
+
+```js
+function makeChain(node, state, inside) {
+  if (t.isCallExpression(node)) {
+    return makeChain(
+      node.callee,
+      state,
+      makeCondition(t.CallExpression(state.temp, node.arguments), state, inside)
+    );
+  } else if (t.isMemberExpression(node)) {
+    return makeChain(
+      node.object,
+      state,
+      makeCondition(
+        t.MemberExpression(state.temp, node.property, node.computed),
+        state,
+        inside
+      )
+    );
+  } else if (t.isIdentifier(node)) {
+    if (node.name !== state.base.name) {
+      throw state.file.buildCodeFrameError(
+        node,
+        'The parameter of the arrow function supplied to `idx` must match ' +
+          'the base of the body expression.'
+      );
+    }
+    return makeCondition(state.input, state, inside);
+  } else {
+    throw state.file.buildCodeFrameError(
+      node,
+      'The `idx` body can only be composed of properties and methods.'
+    );
+  }
+}
+```
+
 ## References
 
 * [dralletje/idx.macro](https://github.com/dralletje/idx.macro?tab=readme-ov-file) A 'babel-macros' version of 'babel-plugin-idx'
