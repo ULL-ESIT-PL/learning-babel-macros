@@ -166,7 +166,7 @@ const friends_of_friends = idx(props, _ => _.user.friends[0].friends);
 
 thus 
 
-- `node.arguments[1].body` is the AST of the arrow function body and `node.arguments[0`
+- `node.arguments[1].body` is the AST of the arrow function body and `node.arguments[0]`
 is the AST of the input object.
 - `node.arguments[1].params[0]` is the parameter of the arrow function, in this case `_`.
 - The `state.file` object is passed to be used in the error messages. For instance `state.file.opts.filename` 
