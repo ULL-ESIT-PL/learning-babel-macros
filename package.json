@@ -19,5 +19,8 @@
     "@babel/preset-env": "^7.24.7",
     "babel-plugin-macros": "^3.1.0",
     "yaml.macro": "^0.2.0"
+  },
+  "dependencies": {
+    "idx.macro": "^4.0.0"
   }
 }

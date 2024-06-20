@@ -142,5 +142,35 @@ See
 * [babel-plugin-macros Usage for macros authors](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/author.md) for the complete information.
 * [eemeli/yaml.macro/macro.js](https://github.com/eemeli/yaml.macro/blob/master/macro.js)
 
+## idx macro
+
+Instead of installing the `idx` plugin and its dependence like this:
+
+```
+➜  tan-li git:(main) ✗ npm install idx babel-plugin-idx
+```
+
+we install only the `idx.macro`:
+
+```
+➜  tan-li git:(main) ✗ npm i idx.macro                   
+```
+And  assuming we have added `macros` to the plugins section of our babel config file:
+
+`➜  tan-li git:(main) ✗ cat babel.config.js`
+```json
+module.exports = {
+  plugins: ['babel-plugin-macros'],
+};
+```
+
+We can run babel to transform the input code::
+
+`➜  tan-li git:(main) ✗ npx babel use-macro.mjs`
+```js
+var _ref;
+const friends_of_friends = (_ref = props) != null ? (_ref = _ref.user) != null ? (_ref = _ref.friends) != null ? (_ref = _ref[0]) != null ? _ref.friends : _ref : _ref : _ref : _ref;
+```
+
 [macros]: https://www.npmjs.com/package/babel-plugin-macros 
 [yaml]: https://github.com/eemeli/yaml.macro/tree/master
