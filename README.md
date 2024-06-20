@@ -144,7 +144,7 @@ See
 
 ## idx macro
 
-See section [doc/idx-macro.md](doc/idx-macro.md).
+See section [docs/idx-macro.md](docs/idx-macro.md).
 
 
 [macros]: https://www.npmjs.com/package/babel-plugin-macros 
