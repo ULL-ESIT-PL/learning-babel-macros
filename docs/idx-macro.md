@@ -82,7 +82,7 @@ const friends_of_friends = idx(props, _ => _.user.friends[0].friends);
 tells `babel-plugin-macros` to 
 
 1. Look for the `idx.macro` import or require and since the name matches then
-2. Collect all the references to nodes `Identifier` with name `idx` in the AST of the code 
+2. Collect in a `reference` list all the `path ` references to nodes `Identifier` with name `idx` in the AST
 3. Call the macro exported by the module `idx.macro` with the `state`, `references` and `babel` objects. (The macro you create should export a function). 
 
 The object `references` has as many  keys as `exports`  has the module macro.
