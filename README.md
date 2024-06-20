@@ -156,7 +156,7 @@ See section [docs/idx-macro.md](docs/idx-macro.md).
 * [Babel macros](https://lihautan.com/babel-macros) by Tan Liu Hau 
 * [I Can Babel Macros (and So Can You!)](https://youtu.be/1WNT5RCENfo?si=ridYavUIQce8zVSe) by Shawn "swyx" Wang in JSConf Hawaii 2019 (Growing a Language)
 * [Learning Babel Macros: ULL-ESIT-PL/learning-babel-macros](https://github.com/ULL-ESIT-PL/learning-babel-macros/tree/main) by Casiano
-* [babel-plugin-macros Usage for macros authors](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/author.md). A tutorial on how to write Babel macros by Kent C. Dodds
+* [babel-plugin-macros: Usage for macros authors](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/author.md). A tutorial on how to write Babel macros by Kent C. Dodds
 * My PL notes on Babel are here: https://ull-pl.vercel.app/topics/tree-transformations/babel
 * [ULL-ESIT-PL/babel-learning](https://github.com/ULL-ESIT-PL/babel-learning/tree/main) tutorial by Casiano
 * [Babel Handbook at jamiebuilds/babel-handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md) This document covers how to create Babel plugins.
