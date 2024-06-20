@@ -79,11 +79,14 @@ import idx from 'idx.macro';
 const friends_of_friends = idx(props, _ => _.user.friends[0].friends);
 ```
 
-tells `babel-plugin-macros` to apply the `idx` macro to the `idx` function call 
-(The macro you create should export a function). 
+tells `babel-plugin-macros` to 
 
-The object `references` has as many  keys as exports  has the macro.
-That is the reason we write in this case `references.default`.
+1. Look for the `idx.macro` import or require and since the name matches and then
+2. Collect all the references to nodes `Identifier` with name `idx` in the AST of the code 
+3. Call the macro exported by the module `idx.macro` with the `state`, `references` and `babel` objects. (The macro you create should export a function). 
+
+The object `references` has as many  keys as `exports`  has the module macro.
+That is the reason we write in this case `references.default`, since there is only one.
 The items in each array are the `paths` to the references in the AST that 
 match.
 
@@ -93,8 +96,20 @@ references.default.forEach(referencePath => { ... });
 
 This is how imagine it works:
 
-The `babel-plugin-macros` traverses the AST  and each time it encounters a node containing a call to the `idx` function stores the subtree in a list of nodes. Later calls the function exported by the macro 
-with the `state`, `bale` and the list of nodes in the `references` object.
+The `babel-plugin-macros` traverses the AST  and each time it encounters a node containing a reference to `idx` stores the subtree in a list of nodes. Later calls the function exported by the macro with the `state`, `babel` and the list of nodes in the `references` object.
+
+Notice that the line `if (referencePath.parentPath.type === 'CallExpression')`  refers to the `parentPath`
+of the node that contains the reference since this points to the identifier and the parent is the "call" to the `idx` function.
+
+```js
+module.exports = createMacro(({ state, references }) => {
+  references.default.forEach(referencePath => {
+    if (referencePath.parentPath.type === 'CallExpression') { // 1
+      idx_transform(referencePath.parentPath, state);
+    } else { ...}
+  });
+});
+```
 
 In our example there is only one call to the `idx` function:
 
@@ -103,9 +118,6 @@ idx(props, _ => _.user.friends[0].friends)
 ```
 
 but if there were more calls to the `idx` function in the code, they would be stored in the `references.default` array.
-
-
-
 
 ## The AST transformer function idx_transform
 
