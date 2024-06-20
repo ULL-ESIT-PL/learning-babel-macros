@@ -40,7 +40,7 @@ import idx from 'idx.macro';
 const friends_of_friends = idx(props, _ => _.user.friends[0].friends);
 ```
 
-## The idx.macro source
+## The idx.macro source: createMacro
 
 Here is the source of the [idx.macro](/src/idx.macro):
 
@@ -60,6 +60,18 @@ module.exports = createMacro(({ state, references }) => {
   });
 });
 ```
+
+The function `createMacro` ensures your macro is only
+called in the context of a babel transpilation and throws an
+error with a helpful message if someone does not have 
+configured correctly `babel-plugin-macros`
+
+The second argument you're passed to a visitor in a normal babel plugin is `state`. This is the 
+`state` property that is passed to the `createMacro` function. 
+
+The object passed to the function `createMacro` has also a field called `babel` 
+which is the `babel-plugin-macros` module but is skipped in this example.
+ 
 Since we are looking for `CallExpression` nodes in the AST, 
 
 ## The AST transformer function idx_transform
