@@ -204,7 +204,7 @@ function checkIdxArguments(file, node) {
 
 ### The call to `makeChain`
 
-The node replacement is done by the function `makeChain`:
+The node that will be used to replace the call is built by the function `makeChain`:
 
 ```js
   const replacement = makeChain(node.arguments[1].body, {
