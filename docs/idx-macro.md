@@ -82,7 +82,7 @@ const friends_of_friends = idx(props, _ => _.user.friends[0].friends);
 tells `babel-plugin-macros` to apply the `idx` macro to the `idx` function call 
 (The macro you create should export a function). 
 
-`references` is an object that contains arrays of all the references to things imported from macro keyed based on the name of the `import`. That is why we write `references.default`.
+The object `references` contains arrays of all the references to things imported from macro keyed based on the name of the `import`. That is why we write `references.default`.
 The items in each array are the `paths` to the references.
 
 ```js
