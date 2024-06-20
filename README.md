@@ -2,6 +2,9 @@
 
 ## What is 
 
+> **Macros are Compile-time libraries** (Shawn Wang)
+
+
 [macros][] is both a plugin and a proposal of a standard interface for npm-modules that provide 
 compile-time code transformations (the same as a Babel plugin) but without requiring the user to add 
 the babel plugin to their Babel configuration system. To use it 
