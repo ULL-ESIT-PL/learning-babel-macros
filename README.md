@@ -11,7 +11,7 @@
 compile-time code transformations (the same as a Babel plugin) but without requiring the user to add 
 the babel plugin to their Babel configuration system. To use it 
 
-1. You have to install the [macros][]
+1. You have to install the babel-[macros][]-plugin
 2. You have to add `macros` to the plugins section of your [.babelrc](/.babelrc) file: `{ "plugins": ["macros"] }`
 
 ## Simple example
