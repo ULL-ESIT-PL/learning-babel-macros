@@ -201,6 +201,8 @@ function checkIdxArguments(file, node) {
 }
 ```
 
+The `state.file`  object has a `buildCodeFrameError(node, mesage)` method of the `file` object that is used to build an error message with the line and column number of the node being visited.
+
 ## The function makeChain
 
 ### The call to `makeChain`
@@ -302,6 +304,28 @@ the same `state` and the `inside` argument is now the recursive call
     );
   }
   return makeCondition(state.input, state, inside);
+```
+
+## The function makeCondition
+
+The function `makeCondition` is used to build the conditional expression that will be used to access the properties of the input object:
+
+```js
+function makeCondition(node, state, inside) {
+  if (inside) {
+    return t.ConditionalExpression(
+      t.BinaryExpression(
+        '!=',
+        t.AssignmentExpression('=', state.temp, node),
+        t.NullLiteral()
+      ),
+      inside,
+      state.temp
+    );
+  } else {
+    return node;
+  }
+}
 ```
 
 ## References
