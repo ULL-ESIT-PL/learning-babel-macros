@@ -145,6 +145,8 @@ function checkIdxArguments(file, node) {
 
 ## The function makeChain
 
+### The call to `makeChain`
+
 The node replacement is done by the function `makeChain`:
 
 ```js
@@ -172,6 +174,7 @@ is the AST of the input object.
 - The `state.file` object is passed to be used in the error messages. For instance `state.file.opts.filename` 
 will give the full path `/Users/casianorodriguezleon/campus-virtual/2324/learning/babel-macros/src/tan-li/use-macro.mjs`  of the file being transformed. and `state.file.sourceFileName` will give the name of the file  `use-macro.mjs`.
 
+### The code of `makeChain`
 
 ## References
 
