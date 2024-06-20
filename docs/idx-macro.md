@@ -96,7 +96,8 @@ references.default.forEach(referencePath => { ... });
 
 This is how imagine it works:
 
-The `babel-plugin-macros` traverses the AST  and each time it encounters a node containing a reference to `idx` stores the subtree in a list of nodes. Later calls the function exported by the macro with the `state`, `babel` and the list of nodes in the `references` object.
+The `babel-plugin-macros` traverses the AST  and each time it encounters a node containing a reference to `idx` stores the corresponding 
+`path` in a list of nodes. Later calls the function exported by the macro with the `state`, `babel` with that list of nodes in the `references` object.
 
 Notice that the line `if (referencePath.parentPath.type === 'CallExpression')`  refers to the `parentPath`
 of the node that contains the reference since this points to the identifier and the parent is the "call" to the `idx` function.
