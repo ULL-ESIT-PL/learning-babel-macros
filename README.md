@@ -3,6 +3,7 @@
 ## What is 
 
 > **Macros are Compile-time libraries** (Shawn Wang)
+> **Babel Macros are Compile-Time Execution**
 
 
 [macros][] is both a plugin and a proposal of a standard interface for npm-modules that provide 
