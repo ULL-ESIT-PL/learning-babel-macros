@@ -234,6 +234,7 @@ will give the full path `/Users/casianorodriguezleon/campus-virtual/2324/learnin
 
 ### The code of `makeChain`
 
+The function `makeChain` is a recursive function that builds the chain of properties and methods that will be used to access the input object:
 
 ```js
 function makeChain(node, state, inside) {
@@ -269,6 +270,19 @@ function makeChain(node, state, inside) {
     );
   }
 }
+```
+
+The `if (t.isCallExpression(node)) { ... }` block is executed when the body is a `CallExpression` like 
+in `idx(props, f => f().user)`. In such case the function `makeChain` is called recursively with the `callee`,
+the same `state` and the `inside` argument is now is the recursive call 
+`makeCondition(t.CallExpression(state.temp, node.arguments), state, inside)`.
+
+```js
+  return makeChain(
+      node.callee,
+      state,
+      makeCondition(t.CallExpression(state.temp, node.arguments), state, inside)
+    );
 ```
 
 ## References
