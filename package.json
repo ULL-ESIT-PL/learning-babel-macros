@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "babel use-yml.cjs",
+    "test": "babel src/use-yml.cjs",
     "save": "git add . && git commit -m 'save' && git push"
   },
   "keywords": [

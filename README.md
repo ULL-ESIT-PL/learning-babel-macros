@@ -24,7 +24,7 @@ then we write some YAML file [file.yml](/file.yml):
 - with: some contents
 ```
 
-then we write some JavaScript file [use-yml.cjs](/use-yml.cjs):
+then we write some JavaScript file [use-yml.cjs](/src/use-yml.cjs):
 
 ```js
 const yaml = require('yaml.macro'); 
@@ -32,9 +32,9 @@ const yaml = require('yaml.macro');
 const foo = yaml('./file.yml');
 ```
 
-then we simple run `babel use-yml.cjs` and we get the following result:
+then we simple run `babel src/use-yml.cjs` and we get the following result:
 
-`➜  babel-macros npx babel use-yml.cjs`
+`➜  babel-macros git:(main) ✗ npx babel src/use-yml.cjs`
 ```js
 const foo = ["YAML file", {
   "with": "some contents"
