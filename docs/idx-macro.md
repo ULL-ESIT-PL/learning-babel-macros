@@ -256,7 +256,7 @@ function makeChain(node, state, inside) {
         inside
       )
     );
-  } else if (t.isIdentifier(node)) {
+  } else if (t.isIdentifier(node)) { // The base case
     if (node.name !== state.base.name) {
       throw state.file.buildCodeFrameError(
         node,
@@ -265,7 +265,7 @@ function makeChain(node, state, inside) {
       );
     }
     return makeCondition(state.input, state, inside);
-  } else {
+  } else { // The recursive call is not a CallExpression, MemberExpression or Identifier
     throw state.file.buildCodeFrameError(
       node,
       'The `idx` body can only be composed of properties and methods.'
@@ -334,6 +334,7 @@ function makeCondition(node, state, inside) {
 * [I Can Babel Macros (and So Can You!)](https://www.youtube.com/watch?v=1WNT5RCENfo) by Shawn "swyx" Wang. JSConf Hawaii 2019
 * [Babel REPL](https://bvaughn.github.io/babel-repl/) by Brian Vaughn
 * [Compilers are the New Frameworks](https://tomdale.net/2017/09/compilers-are-the-new-frameworks/) by Tom Dale
+* [The new wave of frameworks: what can we learn from compiler-based frameworks?](https://youtu.be/pFq7Ch2e6Gw?si=KfxzklfTVNLyY6Of) by Tan Liu Hau 2023. Xitu Developers Conferences
 
 
 
