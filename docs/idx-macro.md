@@ -49,7 +49,7 @@ A good solution was to write a macro that transforms the code
 `idx(props, _ => _.user.friends[0].friend)` 
 into the code `props?.user?.friends?.[0]?.friend` or alternatively the ternary code.
 
-The macro `idx.macro` does exactly this. It is a  macro that transforms the code `idx(props, _ => _.user.friends[0].friend)` into the the ternary code.
+The macro `idx.macro` does exactly this. It is a  macro that transforms the code `idx(props, _ => _.user.friends[0].friend)` into the the corresponding ternary code.
 
 See the examples in folder [/src/tan-li](/src/tan-li).
 
@@ -73,6 +73,14 @@ module.exports = {
 };
 ```
 
+Given the input code [/src/tan-li/use-macro.mjs](/src/tan-li/use-macro.mjs):
+
+`➜  babel-macros git:(main) ✗ cat src/tan-li/use-macro.mjs`
+```js 
+import idx from 'idx.macro';
+const friends_of_friends = idx(props, _ => _.user.friends[0].friends);
+```
+
 We can run babel to transform the input code::
 
 `➜  tan-li git:(main) ✗ npx babel use-macro.mjs`
@@ -88,14 +96,6 @@ const friends_of_friends =  // Output edited to make it more readable
         : _ref
       : _ref
     : _ref;
-```
-
-Where the input code [/src/tan-li/use-macro.mjs](/src/tan-li/use-macro.mjs) is:
-
-`➜  babel-macros git:(main) ✗ cat src/tan-li/use-macro.mjs`
-```js 
-import idx from 'idx.macro';
-const friends_of_friends = idx(props, _ => _.user.friends[0].friends);
 ```
 
 ## The idx.macro source: createMacro
