@@ -294,7 +294,8 @@ will give the full path `/Users/casianorodriguezleon/campus-virtual/2324/learnin
 
 ### The code of `makeChain`
 
-The function `makeChain` is a recursive function that builds the chain of properties and methods that will be used to access the input object:
+The function `makeChain` is a function that builds the chain of properties and methods that will be used to access the input object.
+Basically it build the condition for the current `node` and recursively calls itself for the next node in the chain.
 
 ```js
 function makeChain(node, state, inside) {
