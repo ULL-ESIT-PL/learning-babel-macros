@@ -1,5 +1,46 @@
 # Case Study: idx macro
 
+## The problem: nested optional chaining
+
+Tan poses the problem in his article [Babel macros](https://lihautan.com/babel-macros) as follows:
+
+> Take optional chaining for example, before having the optional chaining operator ?., we had a few ways to write props?.user?.friends?.[0]?.friend, which is:
+
+> a mundane to write, not easy to read (less intentional), but most efficient possible:
+
+```js
+const firstFriend =
+  props.user && props.user.friends && props.user.friends[0]
+    ? props.user.friends[0].friend
+    : null;
+
+// or with ternary
+const firstFriend = props
+  ? props.user
+    ? props.user.friends
+      ? props.user.friends
+        ? props.user.friends[0]
+          ? props.user.friends[0].friend
+          : null
+        : null
+      : null
+    : null
+  : null;
+```
+easy to write, easy to read, but with slightly more runtime overhead:
+
+```js
+const firstFriend = idx(props, _ => _.user.friends[0].friend);
+
+function idx(input, accessor) {
+  try {
+    return accessor(input);
+  } catch (e) {
+    return null;
+  }
+}
+```
+
 ## Running the idx macro
 
 See the examples in folder [/src/tan-li](/src/tan-li).
