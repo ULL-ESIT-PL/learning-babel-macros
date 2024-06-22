@@ -268,12 +268,13 @@ The `state.file`  object has a `buildCodeFrameError(node, mesage)` method of the
 The node that will be used to replace the call is built by the function `makeChain`:
 
 ```js
-  const replacement = makeChain(node.arguments[1].body, {
-    file: state.file,
-    input: node.arguments[0],
-    base: node.arguments[1].params[0],
-    temp,
-  });
+  const replacement = makeChain(node.arguments[1].body, { // The state parameter
+      file: state.file,
+      input: node.arguments[0],
+      base: node.arguments[1].params[0],
+      temp,
+    } //, The inside parameter is undefined
+  );
 ```
 
 Notice that the `temp` variable is passed to the `makeChain` function.
@@ -292,6 +293,29 @@ is the AST of the input object.
 - The `state.file` object is passed to be used in the error messages. For instance `state.file.opts.filename` 
 will give the full path `/Users/casianorodriguezleon/campus-virtual/2324/learning/babel-macros/src/tan-li/use-macro.mjs`  of the file being transformed. and `state.file.sourceFileName` will give the name of the file  `use-macro.mjs`.
 
+### The function makeCondition
+
+Let us first see the function `makeCondition`, which is used to build the conditional expression for a `node`, assuming
+the `inside` contains code that will be executed if the condition is true and `state.temp`:
+
+```js
+function makeCondition(node, state, inside) {
+  if (inside) {
+    return t.ConditionalExpression( // S.t. like (_ref = _ref.user) != null ? _ref.friends /* inside */ : _ref /* state.temp */
+      t.BinaryExpression( // S.t. like (_ref = _ref.user) != null 
+        '!=',
+        t.AssignmentExpression('=', state.temp, node), // S.t. like _ref = _ref.user
+        t.NullLiteral()
+      ),
+      inside,    // _ref.friends
+      state.temp // _ref
+    );
+  } else {
+    return node;
+  }
+}
+```
+
 ### The code of `makeChain`
 
 The function `makeChain` is a function that builds the chain of properties and methods that will be used to access the input object.
@@ -299,13 +323,13 @@ Basically it build the condition for the current `node` and recursively calls it
 
 ```js
 function makeChain(node, state, inside) {
-  if (t.isCallExpression(node)) {
+  if (t.isCallExpression(node)) { // props().user
     return makeChain(
       node.callee,
       state,
       makeCondition(t.CallExpression(state.temp, node.arguments), state, inside)
     );
-  } else if (t.isMemberExpression(node)) {
+  } else if (t.isMemberExpression(node)) { // user.friends or friends[0]
     return makeChain(
       node.object,
       state,
@@ -315,8 +339,8 @@ function makeChain(node, state, inside) {
         inside
       )
     );
-  } else if (t.isIdentifier(node)) { // The base case
-    if (node.name !== state.base.name) {
+  } else if (t.isIdentifier(node)) { // The base case: user
+    if (node.name !== state.base.name) {  
       throw state.file.buildCodeFrameError(
         node,
         'The parameter of the arrow function supplied to `idx` must match ' +
@@ -363,28 +387,6 @@ the same `state` and the `inside` argument is now the recursive call
     );
   }
   return makeCondition(state.input, state, inside);
-```
-
-## The function makeCondition
-
-The function `makeCondition` is used to build the conditional expression that will be used to access the properties of the input object:
-
-```js
-function makeCondition(node, state, inside) {
-  if (inside) {
-    return t.ConditionalExpression(
-      t.BinaryExpression(
-        '!=',
-        t.AssignmentExpression('=', state.temp, node),
-        t.NullLiteral()
-      ),
-      inside,
-      state.temp
-    );
-  } else {
-    return node;
-  }
-}
 ```
 
 ## References
