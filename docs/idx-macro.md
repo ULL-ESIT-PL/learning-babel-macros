@@ -42,7 +42,14 @@ Tan poses the problem in his article [Babel macros](https://lihautan.com/babel-m
 > }
 > ```
 
+
 ## Running the idx macro
+
+A good solution was to write a macro that transforms the code 
+`idx(props, _ => _.user.friends[0].friend)` 
+into the code `props?.user?.friends?.[0]?.friend` or alternatively the ternary code.
+
+The macro `idx.macro` does exactly this. It is a  macro that transforms the code `idx(props, _ => _.user.friends[0].friend)` into the the ternary code.
 
 See the examples in folder [/src/tan-li](/src/tan-li).
 
@@ -71,7 +78,16 @@ We can run babel to transform the input code::
 `➜  tan-li git:(main) ✗ npx babel use-macro.mjs`
 ```js
 var _ref;
-const friends_of_friends = (_ref = props) != null ? (_ref = _ref.user) != null ? (_ref = _ref.friends) != null ? (_ref = _ref[0]) != null ? _ref.friends : _ref : _ref : _ref : _ref;
+const friends_of_friends =  // Output edited to make it more readable
+  (_ref = props) != null ?
+    (_ref = _ref.user) != null ?
+      (_ref = _ref.friends) != null ?
+        (_ref = _ref[0]) != null ?
+          _ref.friends
+          : _ref
+        : _ref
+      : _ref
+    : _ref;
 ```
 
 Where the input code [/src/tan-li/use-macro.mjs](/src/tan-li/use-macro.mjs) is:
