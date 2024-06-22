@@ -12,7 +12,7 @@ Tan poses the problem in his article [Babel macros](https://lihautan.com/babel-m
 >     ? props.user.friends[0].friend
 >     : null;
 ```
-> // or with ternary
+> or with ternary
 ```js
 > const firstFriend = props
 >   ? props.user
