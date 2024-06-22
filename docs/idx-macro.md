@@ -11,7 +11,7 @@ Tan poses the problem in his article [Babel macros](https://lihautan.com/babel-m
 >   props.user && props.user.friends && props.user.friends[0]
 >     ? props.user.friends[0].friend
 >     : null;
-```
+> ```
 
 > or with ternary
 
