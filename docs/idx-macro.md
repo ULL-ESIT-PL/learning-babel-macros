@@ -6,40 +6,39 @@ Tan poses the problem in his article [Babel macros](https://lihautan.com/babel-m
 
 > Take optional chaining for example, before having the optional chaining operator ?., we had a few ways to write props?.user?.friends?.[0]?.friend, which is:
 
-> a mundane to write, not easy to read (less intentional), but most efficient possible:
-
-```js
-const firstFriend =
-  props.user && props.user.friends && props.user.friends[0]
-    ? props.user.friends[0].friend
-    : null;
-
-// or with ternary
-const firstFriend = props
-  ? props.user
-    ? props.user.friends
-      ? props.user.friends
-        ? props.user.friends[0]
-          ? props.user.friends[0].friend
-          : null
-        : null
-      : null
-    : null
-  : null;
+> ```js
+> const firstFriend =
+>   props.user && props.user.friends && props.user.friends[0]
+>     ? props.user.friends[0].friend
+>     : null;
 ```
-easy to write, easy to read, but with slightly more runtime overhead:
-
+> // or with ternary
 ```js
-const firstFriend = idx(props, _ => _.user.friends[0].friend);
-
-function idx(input, accessor) {
-  try {
-    return accessor(input);
-  } catch (e) {
-    return null;
-  }
-}
-```
+> const firstFriend = props
+>   ? props.user
+>     ? props.user.friends
+>       ? props.user.friends
+>         ? props.user.friends[0]
+>           ? props.user.friends[0].friend
+>           : null
+>         : null
+>       : null
+>     : null
+>   : null;
+> ```
+> easy to write, easy to read, but with slightly more runtime overhead:
+> 
+> ```js
+> const firstFriend = idx(props, _ => _.user.friends[0].friend);
+> 
+> function idx(input, accessor) {
+>   try {
+>     return accessor(input);
+>   } catch (e) {
+>     return null;
+>   }
+> }
+> ```
 
 ## Running the idx macro
 
